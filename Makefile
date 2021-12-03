@@ -97,3 +97,7 @@ tests:
 run_app:
 	pipenv run app
 
+.PHONY: docs
+docs:
+	pipenv run mkdocs serve
+

@@ -12,8 +12,11 @@ theme:
 
 nav:
   - Index: 'index.md'
+  - Demo: 'demo.md'
   - Gitlab CI: 'ci.md'
 
-plugins: []
+plugins: 
+  - mkdocs-video
+
 
 markdown_extensions: []

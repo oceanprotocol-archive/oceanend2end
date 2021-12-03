@@ -48,10 +48,10 @@ class OceanMessage(Message):
     class Performative(Message.Performative):
         """Performatives for the ocean protocol."""
 
+        C2D_JOB = "c2d_job"
         CREATE_POOL = "create_pool"
-        D2C_JOB = "d2c_job"
         DEPLOY_ALGORITHM = "deploy_algorithm"
-        DEPLOY_D2C = "deploy_d2c"
+        DEPLOY_C2D = "deploy_c2d"
         DEPLOY_DATA_DOWNLOAD = "deploy_data_download"
         DEPLOYMENT_RECIEPT = "deployment_reciept"
         DOWNLOAD_JOB = "download_job"
@@ -66,10 +66,10 @@ class OceanMessage(Message):
             return str(self.value)
 
     _performatives = {
+        "c2d_job",
         "create_pool",
-        "d2c_job",
         "deploy_algorithm",
-        "deploy_d2c",
+        "deploy_c2d",
         "deploy_data_download",
         "deployment_reciept",
         "download_job",
@@ -453,7 +453,7 @@ class OceanMessage(Message):
                         type(self.amount_to_mint)
                     ),
                 )
-            elif self.performative == OceanMessage.Performative.DEPLOY_D2C:
+            elif self.performative == OceanMessage.Performative.DEPLOY_C2D:
                 expected_nb_of_contents = 8
                 enforce(
                     isinstance(self.token0_name, str),
@@ -683,7 +683,7 @@ class OceanMessage(Message):
                         type(self.data_did)
                     ),
                 )
-            elif self.performative == OceanMessage.Performative.D2C_JOB:
+            elif self.performative == OceanMessage.Performative.C2D_JOB:
                 expected_nb_of_contents = 2
                 enforce(
                     isinstance(self.data_did, str),

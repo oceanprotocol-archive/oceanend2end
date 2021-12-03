@@ -34,4 +34,4 @@ public_id: eightballer/ocean:0.1.0
 type: connection
 config:
   key_path: ethereum_private_key.txt
-  ocean_network_url: https://rpc.polygon.oceanprotocol.com
+  ocean_network_url: https://polygon-mainnet.infura.io/v3/0e33a550ce984ec986e50b00ccb3b517

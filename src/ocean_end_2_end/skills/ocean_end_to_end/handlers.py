@@ -48,16 +48,20 @@ class OceanHandler(Handler):
         self.log.debug(f"Handling message {message}")
         strategy = cast(OceanStrategy, self.context.strategy)
         if message.performative == OceanMessage.Performative.DEPLOYMENT_RECIEPT:
-            if message.type == "d2c":
-                self.log.info(f"Recieved deployment reciept for data token!")
-                strategy.data_to_compute_address = {"did": message.did,
-                                                    "datatoken_contract_address": message.datatoken_contract_address}
+            if message.type == "c2d":
+                self.log.info(f"Received deployment receipt for data token!")
+                strategy.data_to_compute_address = {
+                    "did": message.did,
+                    "datatoken_contract_address": message.datatoken_contract_address,
+                }
                 strategy.is_data_to_compute_deployed = True
                 strategy.is_in_flight = False
             elif message.type == "algorithm":
-                self.log.info(f"Recieved deployment reciept for algorithm!")
-                strategy.algorithm_address = {"did": message.did,
-                                                    "datatoken_contract_address": message.datatoken_contract_address}
+                self.log.info(f"Received deployment reciept for algorithm!")
+                strategy.algorithm_address = {
+                    "did": message.did,
+                    "datatoken_contract_address": message.datatoken_contract_address,
+                }
                 strategy.is_algorithm_deployed = True
                 strategy.is_in_flight = False
             elif message.type == "permissions":
@@ -69,34 +73,37 @@ class OceanHandler(Handler):
                 self.log.info(f"created data asset for download!")
                 strategy.is_data_download_deployed = True
                 strategy.is_in_flight = False
-                strategy.download_params["datatoken_address"] = message.datatoken_contract_address
+                strategy.download_params[
+                    "datatoken_address"
+                ] = message.datatoken_contract_address
                 strategy.download_params["asset_did"] = message.did
-                strategy.datapool_params["datatoken_address"] = message.datatoken_contract_address
+                strategy.datapool_params[
+                    "datatoken_address"
+                ] = message.datatoken_contract_address
             else:
-                raise ValueError(f"Performative not valid: {message.performative}, {message.type}")
-                
+                raise ValueError(
+                    f"Performative not valid: {message.performative}, {message.type}"
+                )
+
         elif message.performative == OceanMessage.Performative.RESULTS:
             self.log.info(f"{message.content}")
-            if strategy.is_d2c_active: 
-                self.log.info(f"results for d2c job!")
-                strategy.has_completed_d2c_job = True 
+            if strategy.is_c2d_active:
+                self.log.info(f"results for c2d job!")
+                strategy.has_completed_c2d_job = True
 
             if strategy.is_download_active:
-                self.log.info(f"Recieved results down job!")
-                strategy.has_completed_download_job = True 
+                self.log.info(f"Received results down job!")
+                strategy.has_completed_download_job = True
 
             strategy.is_in_flight = False
         elif message.performative == OceanMessage.Performative.POOL_DEPLOYMENT_RECIEPT:
-            self.log.info(f"Sucecssfully deployed pool for asset!")
+            self.log.info(f"Successfully deployed pool for asset!")
             strategy.is_in_flight = False
             strategy.is_pool_deployed = True
             strategy.download_params["pool_address"] = message.pool_address
-            
+
         else:
             raise ValueError("Unhandled Message!!!")
-            
-
-        
 
     def teardown(self) -> None:
         """Implement the handler teardown."""

@@ -97,6 +97,7 @@ web3 = "==5.19.0"
 websockets = "==8.1"
 boto3 = "*"
 ocean-lib = "==0.8.5"
+mkdocs-video = "==1.1.0"
 
 [dev-packages]
 

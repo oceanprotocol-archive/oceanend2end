@@ -9,11 +9,11 @@ aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: Qmbo9jNguTqf8H7PaJbm16t58dKhbLSxXtjRY8fB2zpCr5
   custom_types.py: QmZ1roPfCHpiWdfkpKsHXWZTcRyLUBoB68JtSchqU8irmQ
-  dialogues.py: QmSigSPRVB3ckGZaXEqusuyvD5VWccDSEyWeJSHPx8advD
-  message.py: QmYGvW9nmBmbrUWJWXyR2zh8VEPUcUgSnaGjMXBtZZbngd
-  ocean.proto: QmeYRBeiPh5dkDS3jfnki8iQu6DbF5Eoc8njQ1KQq1bQvb
-  ocean_pb2.py: Qme2okUeW6kHpHsjNLXthHVSCyfJZh5rpcPxwxqVDgDMQs
-  serialization.py: QmP4QGAn3RRqLBtCfVHTTKXHXmjd71uLcMBzQR6zMNsBRG
+  dialogues.py: QmR3A9ecF6kX2KQC5vDVkcmsPjjHPLKkhw6iFpxt4X7wbG
+  message.py: QmPRTBAbgTQdTYC5CpKv2K1nY8cxaiAg1nWFyEdw2vJc5v
+  ocean.proto: QmU1zo828F6mCgwcCXwht42aEFLcX7WumGcgVE9JmQZMf2
+  ocean_pb2.py: QmWvjUNqHuBbqKMfbyT2oMc229mbYGDAzTmnzSmcwdz45V
+  serialization.py: QmTu2arTispQ78Trm2swj8P7JT3BM9zpm2h43oVQeNZJje
 fingerprint_ignore_patterns: []
 dependencies:
   protobuf: {}

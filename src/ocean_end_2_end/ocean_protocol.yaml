@@ -16,7 +16,7 @@ speech_acts:
     date_created: pt:str
     license: pt:str
     amount_to_mint: pt:int
-  deploy_d2c:
+  deploy_c2d:
     token0_name: pt:str
     token1_name: pt:str
     dataset_url: pt:str
@@ -59,7 +59,7 @@ speech_acts:
   permission_dataset:
     algo_did: pt:str
     data_did: pt:str
-  d2c_job:
+  c2d_job:
     data_did: pt:str
     algo_did: pt:str
   results:
@@ -82,14 +82,14 @@ ct:ErrorCode: |
   ErrorCodeEnum error_code = 1;
 ...
 ---
-initiation: [deploy_d2c, deploy_algorithm, d2c_job, download_job]
+initiation: [deploy_c2d, deploy_algorithm, c2d_job, download_job]
 reply:
-  deploy_d2c: [deployment_reciept, error, end]
+  deploy_c2d: [deployment_reciept, error, end]
   deploy_data_download: [deployment_reciept, error, end]
   deploy_algorithm: [deployment_reciept, error, end]
   create_pool: [pool_deployment_reciept, error, end]
   download_job: [results, error, end]
-  d2c_job: [results, error, end]
+  c2d_job: [results, error, end]
   results: [error, end]
   permission_dataset: [ error, end]
   deployment_reciept: []

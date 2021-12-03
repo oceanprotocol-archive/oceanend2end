@@ -16,8 +16,8 @@ contracts: []
 protocols: []
 skills: []
 behaviours:
-  d2c:
-    class_name: OceanD2CBehaviour
+  c2d:
+    class_name: OceanC2DBehaviour
   download:
     class_name: OceanDataAccessBehaviour
   demo:
@@ -39,7 +39,7 @@ models:
       algorithm_params: 
         token0_name: "DATA1"
         token1_name: "DATA1"
-        amount_to_mint: 100
+        amount_to_mint: 1000
         language: python
         format: docker-image
         version: "0.1"
@@ -52,9 +52,9 @@ models:
         license: CCO
         date_created: "2019-12-28T10:55:11Z"
       data_to_compute_params:
-        token0_name: "DATA1"
-        token1_name: "DATA1"
-        amount_to_mint: 100
+        token0_name: "DATA100"
+        token1_name: "DATA100"
+        amount_to_mint: 1000
         dataset_url: "https://raw.githubusercontent.com/trentmc/branin/main/branin.arff"
         name: example
         author: Trent

@@ -1,37 +1,74 @@
-# AEA Storj File Uploader
+# AEA Ocean-End-To-End
 
-to setup the project
+### Dependencies
+- make
+- python & pip
+- pipenv
+
+To run this project you need to go through the following steps:
+
+1. Clone and head to repo
 
 ```
-git clone git@gitlab.com:datarella/MOBIX-GROUP/storj-aea.git
+git clone git@gitlab.com:8ball030/oceanend2end.git
+cd oceanend2end || exit
+```
+
+2. Make a new pipenv and install the necessary python dependencies
+```
 make new_env
 make install_env
 ```
 
-to run the project
+3. Checkout the new environment 
+```
+pipenv shell
+```
+
+4. Run the AEA
+
+Manually
+```
+cd src/ocean_end_2_end || exit
+aea -s run
+```
+or through make
 
 ```
 make run_app
 ```
+
+# Example running docs
+
+1. clone repo
+2. setup a new environment
+   - make new_env
+   - make 
+3. in project directory:
+```bash
+ pipenv shell # if you haven't already
+ mkdocs serve
+```
+Visit http://127.0.0.1:8000/
 
 
 # Components
 
 - gitlab ci
     - The ci contains the basic configuration required to launch a launch a gitlab ci
-  
+
 - Dockerfile
-  - Basic Dockerfile which installs deps and launchs the app
+    - Basic Dockerfile which installs deps and launchs the app
 
 - makefile
-  - lints
-      - isort
-      - black
-      - code clean
+    - lints
+        - isort
+        - black
+        - code clean
 - pre-commit hooks for the build process
 
 - scripts
-  - app.py launcher for debugging and launching docker process
+    - app.py launcher for debugging and launching docker process
 
 - Pipfile
 
@@ -40,38 +77,7 @@ make run_app
 - .env file
 - docs
 
-
-# Example running docs
-
-1. clone repo
-2. setup a new environment
-   - make new_env
-   - make 
-3. run application
-```bash
- RUN_CMD="echo hello" pipenv run app
-```
-
-
-# Install environment
-1. install pip
-```
-pip install pipenv
-```
-
-2. create new environment
-```
-make new_env
-```
-3. install new env
-```
-make install_env
-```
-
-
-
-
-# dev tools
+# Dev Tools
 setup pre-commit hooks
 ```
 make install_hooks

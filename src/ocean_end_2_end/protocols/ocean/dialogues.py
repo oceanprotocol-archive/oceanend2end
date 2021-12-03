@@ -39,9 +39,9 @@ class OceanDialogue(Dialogue):
 
     INITIAL_PERFORMATIVES = frozenset(
         {
-            OceanMessage.Performative.DEPLOY_D2C,
+            OceanMessage.Performative.DEPLOY_C2D,
             OceanMessage.Performative.DEPLOY_ALGORITHM,
-            OceanMessage.Performative.D2C_JOB,
+            OceanMessage.Performative.C2D_JOB,
             OceanMessage.Performative.DOWNLOAD_JOB,
         }
     )
@@ -54,16 +54,16 @@ class OceanDialogue(Dialogue):
         }
     )
     VALID_REPLIES = {
-        OceanMessage.Performative.CREATE_POOL: frozenset(
+        OceanMessage.Performative.C2D_JOB: frozenset(
             {
-                OceanMessage.Performative.POOL_DEPLOYMENT_RECIEPT,
+                OceanMessage.Performative.RESULTS,
                 OceanMessage.Performative.ERROR,
                 OceanMessage.Performative.END,
             }
         ),
-        OceanMessage.Performative.D2C_JOB: frozenset(
+        OceanMessage.Performative.CREATE_POOL: frozenset(
             {
-                OceanMessage.Performative.RESULTS,
+                OceanMessage.Performative.POOL_DEPLOYMENT_RECIEPT,
                 OceanMessage.Performative.ERROR,
                 OceanMessage.Performative.END,
             }
@@ -75,7 +75,7 @@ class OceanDialogue(Dialogue):
                 OceanMessage.Performative.END,
             }
         ),
-        OceanMessage.Performative.DEPLOY_D2C: frozenset(
+        OceanMessage.Performative.DEPLOY_C2D: frozenset(
             {
                 OceanMessage.Performative.DEPLOYMENT_RECIEPT,
                 OceanMessage.Performative.ERROR,

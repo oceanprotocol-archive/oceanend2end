@@ -26,11 +26,7 @@ from packages.eightballer.skills.ocean_end_to_end import PUBLIC_ID as SENDER_ID
 from packages.eightballer.skills.ocean_end_to_end.strategy import OceanStrategy
 
 from packages.eightballer.protocols.ocean.message import OceanMessage
-from packages.eightballer.protocols.ocean.dialogues import (
-    OceanDialogue,
-    OceanDialogues
-)
-
+from packages.eightballer.protocols.ocean.dialogues import OceanDialogue, OceanDialogues
 
 
 class OceanBehaviourBase(Behaviour):
@@ -45,60 +41,67 @@ class OceanBehaviourBase(Behaviour):
         self.log.debug(f"Tearing down the behaviour")
 
 
-        
-class OceanD2CBehaviour(OceanBehaviourBase):
-    
+class OceanC2DBehaviour(OceanBehaviourBase):
     def act(self) -> None:
         """Implement the act."""
         strategy = cast(OceanStrategy, self.context.strategy)
-    
-        if strategy.is_in_flight or not strategy.is_d2c_active:
-            return 
-    
-        if not strategy.is_data_to_compute_deployed and \
-            strategy.data_to_compute_address == {}:
+
+        if strategy.is_in_flight or not strategy.is_c2d_active:
+            return
+
+        if (
+            not strategy.is_data_to_compute_deployed
+            and strategy.data_to_compute_address == {}
+        ):
             self.log.info(f"Initialising deploying the data_to_compute!!")
-            self.__create_envelope(OceanMessage.Performative.DEPLOY_D2C, 
-                               **strategy.data_to_compute_params)
+            self.__create_envelope(
+                OceanMessage.Performative.DEPLOY_C2D, **strategy.data_to_compute_params
+            )
             return
-                               
-        if not strategy.is_algorithm_deployed and \
-            strategy.algorithm_address == {}:
+
+        if not strategy.is_algorithm_deployed and strategy.algorithm_address == {}:
             self.log.info(f"Initialising deploying the algorithm!")
-            self.__create_envelope(OceanMessage.Performative.DEPLOY_ALGORITHM, 
-                               **strategy.algorithm_params)
+            self.__create_envelope(
+                OceanMessage.Performative.DEPLOY_ALGORITHM, **strategy.algorithm_params
+            )
             return
 
-        if not strategy.is_data_permissioned and \
-            strategy.is_algorithm_deployed and \
-            strategy.is_data_to_compute_deployed:
+        if (
+            not strategy.is_data_permissioned
+            and strategy.is_algorithm_deployed
+            and strategy.is_data_to_compute_deployed
+        ):
             self.log.info(f"permissioning the dataset to allow d 2 c !")
-            self.__create_envelope(OceanMessage.Performative.PERMISSION_DATASET, 
-                               **strategy.get_permission_request())
-            return 
+            self.__create_envelope(
+                OceanMessage.Performative.PERMISSION_DATASET,
+                **strategy.get_permission_request(),
+            )
+            return
 
-        if strategy.is_data_permissioned and \
-            strategy.is_algorithm_deployed and \
-            strategy.is_data_to_compute_deployed and \
-            not strategy.has_completed_d2c_job:
+        if (
+            strategy.is_data_permissioned
+            and strategy.is_algorithm_deployed
+            and strategy.is_data_to_compute_deployed
+            and not strategy.has_completed_c2d_job
+        ):
             self.log.info(f"submitting the data 2 compute job!")
-            self.__create_envelope(OceanMessage.Performative.D2C_JOB, 
-                               **strategy.get_permission_request())
-                
-        if strategy.has_completed_d2c_job:
-            self.log.info(f"Completed the d2c demonstration... Setting strategy to download behaviour")
-            strategy.is_d2c_active = False
-            strategy.is_processing = False
-            
+            self.__create_envelope(
+                OceanMessage.Performative.C2D_JOB, **strategy.get_permission_request()
+            )
 
-        
-    def __create_envelope(self, performative: OceanMessage.Performative, **kwargs) -> None:
+        if strategy.has_completed_c2d_job:
+            self.log.info(
+                f"Completed the c2d demonstration... Setting strategy to download behaviour"
+            )
+            strategy.is_c2d_active = False
+            strategy.is_processing = False
+
+    def __create_envelope(
+        self, performative: OceanMessage.Performative, **kwargs
+    ) -> None:
         strategy = cast(OceanStrategy, self.context.strategy)
         receiver_id = "eightballer/ocean:0.1.0"
-        msg = OceanMessage(
-            performative=performative,
-            **kwargs
-        )
+        msg = OceanMessage(performative=performative, **kwargs)
         msg.sender = str(SENDER_ID)
         msg.to = receiver_id
         file_upload_envolope = Envelope(
@@ -107,53 +110,57 @@ class OceanD2CBehaviour(OceanBehaviourBase):
         self.context.outbox.put(file_upload_envolope)
         strategy.is_in_flight = True
 
-        
+
 class OceanDataAccessBehaviour(OceanBehaviourBase):
-    
     def act(self) -> None:
         """Implement the act."""
         strategy = cast(OceanStrategy, self.context.strategy)
-    
-        if strategy.is_in_flight or not strategy.is_download_active:
-            return 
 
-            
-        if not strategy.is_data_download_deployed and \
-            strategy.data_download_address == {}:
+        if strategy.is_in_flight or not strategy.is_download_active:
+            return
+
+        if (
+            not strategy.is_data_download_deployed
+            and strategy.data_download_address == {}
+        ):
             self.log.info(f"Initialising deploying the data_to_download!!")
-            self.__create_envelope(OceanMessage.Performative.DEPLOY_DATA_DOWNLOAD, 
-                               **strategy.data_to_compute_params)
+            self.__create_envelope(
+                OceanMessage.Performative.DEPLOY_DATA_DOWNLOAD,
+                **strategy.data_to_compute_params,
+            )
             return
-        
-        if not strategy.is_pool_deployed and \
-            strategy.download_params['pool_address']== "":
+
+        if (
+            not strategy.is_pool_deployed
+            and strategy.download_params["pool_address"] == ""
+        ):
             self.log.info(f"Initialising creating the data pool!")
-            self.__create_envelope(OceanMessage.Performative.CREATE_POOL, 
-                               **strategy.datapool_params)
+            self.__create_envelope(
+                OceanMessage.Performative.CREATE_POOL, **strategy.datapool_params
+            )
             return
-            
-        if strategy.is_data_download_deployed and \
-            strategy.is_pool_deployed:
+
+        if strategy.is_data_download_deployed and strategy.is_pool_deployed and not strategy.has_completed_download_job:
             self.log.info(f"creating the data download!")
-            self.__create_envelope(OceanMessage.Performative.DOWNLOAD_JOB, 
-                               **strategy.download_params)
+            self.__create_envelope(
+                OceanMessage.Performative.DOWNLOAD_JOB, **strategy.download_params
+            )
             return
-            
-        if strategy.is_data_download_ and \
-            strategy.is_pool_deployed and \
-            strategy.download_job_completed:
+
+        if (
+            strategy.has_completed_download_job
+            and strategy.is_pool_deployed
+        ):
             self.log.info(f"completed the data download!")
             strategy.is_download_active = False
             strategy.is_processing = False
 
-        
-    def __create_envelope(self, performative: OceanMessage.Performative, **kwargs) -> None:
+    def __create_envelope(
+        self, performative: OceanMessage.Performative, **kwargs
+    ) -> None:
         strategy = cast(OceanStrategy, self.context.strategy)
         receiver_id = "eightballer/ocean:0.1.0"
-        msg = OceanMessage(
-            performative=performative,
-            **kwargs
-        )
+        msg = OceanMessage(performative=performative, **kwargs)
         msg.sender = str(SENDER_ID)
         msg.to = receiver_id
         file_upload_envolope = Envelope(
@@ -169,21 +176,18 @@ class OceanDemoBehaviour(Behaviour):
 
         if strategy.is_processing:
             return
-        if strategy.demo_d2c and not strategy.has_completed_d2c_job:
-            self.context.logger.info(f"Setting D2C Behaviour to active")
+        if strategy.demo_c2d and not strategy.has_completed_c2d_job:
+            self.context.logger.info(f"Setting C2D Behaviour to active")
             strategy.is_processing = True
-            strategy.is_d2c_active = True
-            return 
+            strategy.is_c2d_active = True
+            return
         elif strategy.demo_download and not strategy.has_completed_download_job:
             strategy.is_download_active = True
             strategy.is_processing = True
             self.context.logger.info(f"Setting Download Behaviour to active")
-        
 
-        
     def teardown(self):
         pass
 
     def setup(self):
         pass
-        
