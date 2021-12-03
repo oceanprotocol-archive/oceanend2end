@@ -22,11 +22,11 @@
 from typing import cast
 
 from aea.skills.base import Behaviour, Envelope
+from packages.eightballer.protocols.ocean.dialogues import (OceanDialogue,
+                                                            OceanDialogues)
+from packages.eightballer.protocols.ocean.message import OceanMessage
 from packages.eightballer.skills.ocean_end_to_end import PUBLIC_ID as SENDER_ID
 from packages.eightballer.skills.ocean_end_to_end.strategy import OceanStrategy
-
-from packages.eightballer.protocols.ocean.message import OceanMessage
-from packages.eightballer.protocols.ocean.dialogues import OceanDialogue, OceanDialogues
 
 
 class OceanBehaviourBase(Behaviour):
@@ -140,17 +140,18 @@ class OceanDataAccessBehaviour(OceanBehaviourBase):
             )
             return
 
-        if strategy.is_data_download_deployed and strategy.is_pool_deployed and not strategy.has_completed_download_job:
+        if (
+            strategy.is_data_download_deployed
+            and strategy.is_pool_deployed
+            and not strategy.has_completed_download_job
+        ):
             self.log.info(f"creating the data download!")
             self.__create_envelope(
                 OceanMessage.Performative.DOWNLOAD_JOB, **strategy.download_params
             )
             return
 
-        if (
-            strategy.has_completed_download_job
-            and strategy.is_pool_deployed
-        ):
+        if strategy.has_completed_download_job and strategy.is_pool_deployed:
             self.log.info(f"completed the data download!")
             strategy.is_download_active = False
             strategy.is_processing = False

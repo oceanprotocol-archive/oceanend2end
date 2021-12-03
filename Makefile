@@ -40,10 +40,10 @@ clean-test:
 
 .PHONY: lint
 lint:
-	pipenv run black src/
-	pipenv run isort src/
-	pipenv run flake8 src/
-	pipenv run vulture src/
+	pipenv run black src/ocean_end_2_end/skills/ocean_end_to_end
+	pipenv run isort src/ocean_end_2_end/skills/ocean_end_to_end
+	pipenv run vulture src/ocean_end_2_end/skills/ocean_end_to_end --min-confidence 95
+
 
 .PHONY: security
 security:

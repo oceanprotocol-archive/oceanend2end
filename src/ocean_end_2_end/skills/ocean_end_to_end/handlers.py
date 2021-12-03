@@ -24,10 +24,8 @@ from typing import Optional, cast
 from aea.configurations.base import PublicId
 from aea.protocols.base import Message
 from aea.skills.base import Handler
-
-from packages.eightballer.skills.ocean_end_to_end.strategy import OceanStrategy
-
 from packages.eightballer.protocols.ocean.message import OceanMessage
+from packages.eightballer.skills.ocean_end_to_end.strategy import OceanStrategy
 
 
 class OceanHandler(Handler):
