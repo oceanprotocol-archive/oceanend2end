@@ -1,6 +1,16 @@
 # AEA Ocean-End-To-End
 
-### Dependencies
+## Intro
+
+This agent is responsible for doing a full demo of the main Ocean functionalities.
+The heavy lifting for this use-case is done by the `eightballer/ocean:0.1.0` skill, protocol and connection. 
+
+Once the agent is up & running, it creates the pool & deploys algorithm that will be
+available for submitting a Compute-to-Data job. In the end, the results from 
+the algorithm will be downloaded using Ocean stack.
+
+
+## Dependencies
 - make
 - python & pip
 - pipenv
@@ -38,7 +48,7 @@ or through make
 make run_app
 ```
 
-# Example running docs
+### Example running docs
 
 1. clone repo
 2. setup a new environment
@@ -52,7 +62,7 @@ make run_app
 Visit http://127.0.0.1:8000/
 
 
-# Components
+### Components
 
 - gitlab ci
     - The ci contains the basic configuration required to launch a launch a gitlab ci
@@ -77,7 +87,7 @@ Visit http://127.0.0.1:8000/
 - .env file
 - docs
 
-# Dev Tools
+### Dev Tools
 setup pre-commit hooks
 ```
 make install_hooks
