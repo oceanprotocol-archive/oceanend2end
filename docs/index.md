@@ -1,7 +1,4 @@
 # Ocean End-To-End (E2E)
-This agent is responsible for doing a full demo of the main Ocean functionalities.
-The heavy lifting for this use-case is done by the `eightballer/ocean:0.1.0` skill, protocol and connection. 
-
 The following list briefly explains the steps which the agent takes:
 
 - Once this agent is run, it starts off by deploying a new pool. 
@@ -11,11 +8,6 @@ The following list briefly explains the steps which the agent takes:
 - Download the job results 
 
 [![](https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgIEFbU3RhcnQgQWdlbnRdIC0tPiBCW0RlcGxveSBQb29sXVxuICAgQiAtLT4gQ1tEZXBsb3kgQWxnb3JpdGhtXSBcbiAgIEMgLS0-IERbTWFrZSBEYXRhc2V0IEF2YWlsYWJsZSBmb3IgQzJEXVxuICAgRCAtLT4gRVtTdWJtaXQgQzJEIEpvYl1cbiAgIEUgLS0-IEZbRG93bmxvYWQgUmVzdWx0c10iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlLCJhdXRvU3luYyI6dHJ1ZSwidXBkYXRlRGlhZ3JhbSI6ZmFsc2V9)](https://mermaid-js.github.io/mermaid-live-editor/edit/#eyJjb2RlIjoiZ3JhcGggVERcbiAgIEFbU3RhcnQgQWdlbnRdIC0tPiBCW0RlcGxveSBQb29sXVxuICAgQiAtLT4gQ1tEZXBsb3kgQWxnb3JpdGhtXSBcbiAgIEMgLS0-IERbTWFrZSBEYXRhc2V0IEF2YWlsYWJsZSBmb3IgQzJEXVxuICAgRCAtLT4gRVtTdWJtaXQgQzJEIEpvYl1cbiAgIEUgLS0-IEZbRG93bmxvYWQgUmVzdWx0c10iLCJtZXJtYWlkIjoie1xuICBcInRoZW1lXCI6IFwiZGVmYXVsdFwiXG59IiwidXBkYXRlRWRpdG9yIjpmYWxzZSwiYXV0b1N5bmMiOnRydWUsInVwZGF0ZURpYWdyYW0iOmZhbHNlfQ)
-
-For this demo we use the Ocean Network available on Polygon. 
-
-*Note that there is an Ethereum private key provided by us, please consider this key as compromised and do not use it for anything apart from this demo*.
-This agent is available under `src/ocean_end_2_end`.
 
 ### `eightballer/ocean:0.1.0` Skill
 
